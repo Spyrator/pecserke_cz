@@ -1,0 +1,22 @@
+spin_manifest_version = 2
+
+[application]
+name = "pecserke_cz"
+version = "0.1.0"
+authors = ["Filip Pecsérke <filip.pecserke@gmail.com>"]
+description = "A project that runs the webiste pecserke.cz"
+
+
+[[trigger.http]]
+route = "/api/..."
+component = "api"
+
+[component.api]
+source = "api/target/wasm32-wasi/release/api.wasm"
+allowed_outbound_hosts = []
+sqlite_databases = ["default"]
+
+[component.api.build]
+command = "cargo build --target wasm32-wasi --release"
+workdir = "api"
+watch = ["src/**/*.rs", "Cargo.toml"]
