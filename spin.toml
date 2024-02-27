@@ -8,15 +8,14 @@ description = "A project that runs the webiste pecserke.cz"
 
 
 [[trigger.http]]
-route = "/api/..."
+route = "/..."
 component = "api"
 
 [component.api]
-source = "api/target/wasm32-wasi/release/api.wasm"
+source = "target/wasm32-wasi/release/api.wasm"
 allowed_outbound_hosts = []
 sqlite_databases = ["default"]
 
 [component.api.build]
 command = "cargo build --target wasm32-wasi --release"
-workdir = "api"
 watch = ["src/**/*.rs", "Cargo.toml"]

@@ -1,2 +1,3 @@
-main.wasm
+target/
 .spin/
+main.wasm
