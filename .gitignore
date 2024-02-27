@@ -1,3 +1,5 @@
 target/
 .spin/
 main.wasm
+.vscode/
+

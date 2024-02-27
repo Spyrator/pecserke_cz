@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" class="h-screen">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@unocss/runtime"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
+</head>
+
+<body class="m-0 h-screen flex flex-col font-mono c-white overflow-hidden" hx-swap="innerHTML swap:300ms">
+
+    <!-- header -->
+    <div id="header" class="flex justify-between bg-blue-950 p-4 c-white list-none basis-6 z-10">
+        <div class="flex">
+            <svg id="burger-menu" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16"
+                class="pr-2">
+                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="1.5" d="M2.75 12.25h10.5m-10.5-4h10.5m-10.5-4h10.5" />
+            </svg>
+            <li class="v-mid text-center">Filip Pecsérke</li>
+        </div>
+        <li class="v-mid text-center">Login</li>
+    </div>
+
+    <div id="content" class="bg-truegray-800 flex grow lt-md:flex-col content overflow-hidden ">
+
+        <!-- aside -->
+        <aside  id="aside" hx-boost
+            class="md:h-100% list-none flex flex-col bg-truegray-900 c-white shrink-0 w-12rem lt-md:absolute lt-md:w-100% lt-md:translate-y--100">
+            <a class="p-5 hover-bg-truegray-700" hx-push-url="true" href="/" hx-swap="innerHTML swap:300ms">Home</a>
+            <a class="p-5 b-t-solid b-t b-truegray-7 hover-bg-truegray-700" hx-push-url="true" href="/qr"  
+                hx-swap="innerHTML swap:300ms">
+                QRCode Gen</a>
+            <a class="p-5 b-t-solid b-t b-truegray-7 hover-bg-truegray-700" hx-push-url="true" href="/cv" >CV</a>
+            <a class="md:grow b-t-solid b-t b-truegray-7 " ></a>
+            <a class="p-5 b-t-solid b-t b-truegray-7 hover-bg-truegray-700" hx-push-url="true" href="/settings"  
+                hx-swap="innerHTML swap:300ms"> 
+                Settings</a>
+        </aside>
+
+        <!-- main -->
+        <main id="main" 
+            class="top-0 md:px-20% lt-md:px-5% grid gap-4 py-8 overflow-y-scroll flex-basis-100% md:grow-0 lt-md:grow-1 md:shrink-1 lt-md:shrink-0">
+            {% block content %}<p>Hi</p>{% endblock %}
+
+        </main>
+    </div>
+
+</body>
+
+</html>
+
+<style>
+    .htmx-swapping {
+        opacity: 0;
+        /* transition: opacity 1s ease-out; */
+    }
+
+    .a {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+    }
+    
+    .a:visited {
+        display: block;
+        color: inherit;
+    }
+
+    a:-webkit-any-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+    * {
+        box-sizing: border-box;
+    }
+
+    @media (min-width: 767.9px) {
+        .content {
+            width: calc(100% + 12rem);
+            translate: -12rem;
+        }
+
+        .content-small {
+            width: 100%;
+            translate: 0rem;
+        }
+    }
+</style>
+
+<script>
+    let content = document.querySelector("#content")
+    let aside = document.querySelector("#aside")
+
+    let hide_sidebar = () => {
+        content.classList.add("content")
+        content.classList.remove("content-small")
+        aside.classList.add("lt-md:translate-y--100")
+    }
+
+    let show_sidebar = () => {
+        content.classList.add("content-small")
+        content.classList.remove("content")
+        aside.classList.remove("lt-md:translate-y--100")
+    }
+
+    document.querySelector("#burger-menu").addEventListener("click", () => {
+        content.classList.add("duration-300")
+        aside.classList.add("duration-300")
+        content.classList.contains("content") ? show_sidebar() : hide_sidebar()
+
+    })
+
+
+
+    aside.addEventListener("click", hide_sidebar)
+
+    setTimeout(() =>
+        document.querySelector("#main").classList.add("duration-300"), 100)
+</script>

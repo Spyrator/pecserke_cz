@@ -1,0 +1,38 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<form class="flex flex-col md:w-1/2 gap-2 m-a" hx-post="/pay" hx-target="#qr" hx-ext='json-enc'>
+
+    <!-- iban -->
+    <label for="iban">IBAN</label>
+    <input id="iban" type="text" value="CZ8120100000002000466782" name="iban">
+
+    <!-- recipient -->
+    <label for="recipient">Recipient name</label>
+    <input id="recipient" type="text" value="Filip Pecsérke" name="recipient">
+
+    <!-- amount -->
+    <label for="amount">Amount</label>
+    <input id="amount" type="number" value="100" name="amount">
+
+    <!-- currency -->
+    <label for="currency">Currency</label>
+    <select id="currency" value="1" name="currency">
+        <option value="CZK">CZK</option>
+        <option value="EUR">EUR</option>
+        <option value="JPY">JPY</option>
+    </select>
+    <!-- message -->
+    <label for="message">Message</label>
+    <input id="message" type="text" value="<3 sending money" name="message">
+
+    <div></div>
+
+    <button>Generate</button>
+
+</form>
+<div id="qr" class="m-a p-4">
+    <img src="" alt="">
+</div>
+{% endblock %}
